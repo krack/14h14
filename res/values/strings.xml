@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">14h14</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="appwidget_text">14h14</string>
+    <string name="add_widget">Add widget</string>
+    
+    
+    <!-- settings interface -->    
+    <string name="receiver_title">Destinataire</string>
+    <string name="receiver_choose">Changer</string>
+    <string name="receiver_not_saved">Pas de destinataire</string>
+    
+    <!-- messsage -->    
+    <string name="send_sms_send" >SMS envoyé!</string>
+    <string name="send_sms_failed" >L\'envoit du SMS à échoué!</string>
+    <string name="send_sms_not_the_time">Ce n\'est pas l\'heure!</string>
+    <string name="send_sms_no_receiver">Vous n\'avez pas renseigné de destinataire!</string>
+
+</resources>
