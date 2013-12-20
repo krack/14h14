@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.READ_SMS"/>
     <uses-permission android:name="android.permission.RECEIVE_SMS"/>
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
 
     <application
         android:allowBackup="true"
@@ -42,6 +43,7 @@
         </receiver>
         <activity android:name="SmsActivity"></activity>
         <receiver android:name="SmsWidgetReceiver"></receiver>
+        <receiver android:name="SmsResponseReceiver"></receiver>
         
         <!-- 
         broadcast sms receiver
