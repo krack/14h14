@@ -32,10 +32,10 @@ public class SmsWidgetReceiver extends BroadcastReceiver {
 	// initilise the custom message for hour.
 	this.customMessages = new HashMap<Integer, String>();
 
-	this.customMessages.put(6, "%02dh%02d Alice The Storm");
-	this.customMessages.put(11, "%02dh%02d Vadrouille !!");
-	this.customMessages.put(14, "%02dh%02d toi<3 Léchou");
-	this.customMessages.put(22, "%02dh%02d à poil !! Léchou !!");
+	this.customMessages.put(6, "Alice The Storm");
+	this.customMessages.put(11, "Vadrouille !!");
+	this.customMessages.put(14, "toi<3 Léchou");
+	this.customMessages.put(22, "à poil !! Léchou !!");
     }
 
     @Override
@@ -88,10 +88,15 @@ public class SmsWidgetReceiver extends BroadcastReceiver {
      */
     private String getMessage(Calendar currentDate) {
 	int hour = currentDate.get(Calendar.HOUR_OF_DAY);
-	int minutes = currentDate.get(Calendar.MINUTE);
-
+	String number = null;
+	if(hour >= 10){
+	    number = ""+hour;
+	}else{
+	    number = "0"+hour;
+	}
+	
 	// complete the message with the good hour and minutes
-	String message = String.format(this.getFormatString(currentDate), hour, minutes);
+	String message = this.getFormatString(currentDate).replaceAll("%02d", number);
 	return message;
     }
 
@@ -106,12 +111,51 @@ public class SmsWidgetReceiver extends BroadcastReceiver {
 	// get custom message of the hour
 	String message = this.customMessages.get(hour);
 
-	// if no custom message, define by default message
+	// if no custom message, message
 	if (message == null) {
-	    message = "%02dh%02d";
+	    message = "";
+	}
+	//if custom message, add before 
+	else{
+	    message = " "+message;
+
 	}
 
+	message = getHourString(currentDate)+message;
+
 	return message;
+    }
+
+    /**
+     * Create the string of hour with all identique element of the date.
+     * @param currentDate the current date
+     * @return the string of hour with %02d for hours.
+     */
+    private String getHourString(Calendar currentDate){
+	int hour = currentDate.get(Calendar.HOUR_OF_DAY);
+	String hours = "%02dh";
+	//if minutes is the same of hour, add minutes string
+	if(hour == currentDate.get(Calendar.MINUTE)){
+	    hours+="%02d";
+	    //if second is the same of hour, add second string
+	    if(hour == currentDate.get(Calendar.SECOND)){
+		hours+="min%02ds";
+	    }
+	}
+
+	//if the days is the same of hour, add day string
+	if(hour == currentDate.get(Calendar.DAY_OF_MONTH)){
+	    hours+=" le %02d";
+	    //if the month is the same of hour, add month string
+	    if(hour == currentDate.get(Calendar.MONTH)+1){
+		hours+="/%02d";
+		//if last 2 number of year is the same of hour, add year string
+		if(hour == (currentDate.get(Calendar.YEAR)%100)){
+		    hours+="/%02d";
+		}
+	    }
+	}
+	return hours;
     }
 
     /**
