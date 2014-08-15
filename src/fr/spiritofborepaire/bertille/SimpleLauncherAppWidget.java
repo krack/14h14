@@ -11,7 +11,7 @@ import android.widget.RemoteViews;
  * App widget with on place for launch classic SMS.
  * 
  */
-public class SimpleLauncherAppWidget extends AppWidgetProvider {
+public abstract class SimpleLauncherAppWidget extends AppWidgetProvider {
     // the remote view of widget.
     private RemoteViews views;
 
@@ -32,7 +32,7 @@ public class SimpleLauncherAppWidget extends AppWidgetProvider {
      * @param appWidgetId the id of widget
      */
     private void updateAppWidget(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-	this.views = new RemoteViews(context.getPackageName(), R.layout.simple_launcher_app_widget);
+	this.views = new RemoteViews(context.getPackageName(), getLayout());
 
 	// Add action
 	this.addWidgetClickAction(context);
@@ -40,6 +40,12 @@ public class SimpleLauncherAppWidget extends AppWidgetProvider {
 	// Instruct the widget manager to update the widget
 	appWidgetManager.updateAppWidget(appWidgetId, this.views);
     }
+
+    /**
+     * Get the layout of the AppWidget
+     * @return the layout id.
+     */
+    protected abstract int getLayout();
 
     /**
      * Add click action of widget : launch SMS widget receiver

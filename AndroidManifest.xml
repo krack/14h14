@@ -7,12 +7,13 @@
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="16" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
-    <uses-permission android:name="android.permission.WRITE_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
-    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR"/>
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.EXPAND_STATUS_BAR" />
 
     <application
         android:allowBackup="true"
@@ -28,11 +29,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		
-        <!-- 
-        App widget
-         -->
-        <receiver android:name="fr.spiritofborepaire.bertille.SimpleLauncherAppWidget" >
+
+        <!-- App widget -->
+        <!-- classical widget -->
+        <receiver
+            android:name="fr.spiritofborepaire.bertille.ClassicalSimpleLauncherAppWidget"
+            android:icon="@drawable/ic_launcher" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -41,15 +43,32 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/simple_launcher_app_widget_info" />
         </receiver>
-        <activity android:name="SmsActivity"></activity>
-        <receiver android:name="SmsWidgetReceiver"></receiver>
-        <receiver android:name="SmsResponseReceiver"></receiver>
-        
-        <!-- 
-        broadcast sms receiver
-         -->
-        <receiver android:name="SmsNotifierReceiver" android:enabled="true">
-            <intent-filter >
+        <!-- pink widget -->
+        <receiver
+            android:name="fr.spiritofborepaire.bertille.PinkSimpleLauncherAppWidget"
+            android:icon="@drawable/pink_icon" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/simple_launcher_app_widget_info" />
+        </receiver>
+
+        <activity android:name="SmsActivity" >
+        </activity>
+
+        <receiver android:name="SmsWidgetReceiver" >
+        </receiver>
+        <receiver android:name="SmsResponseReceiver" >
+        </receiver>
+
+        <!-- broadcast sms receiver -->
+        <receiver
+            android:name="SmsNotifierReceiver"
+            android:enabled="true" >
+            <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
